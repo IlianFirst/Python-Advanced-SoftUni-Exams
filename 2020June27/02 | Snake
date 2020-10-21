@@ -1,0 +1,46 @@
+n = int(input())
+food_eaten = 0
+matrix = [[i for i in input()] for _ in range(n)]
+
+index = (0, 0)
+for row in range(n):
+    for col in range(n):
+        if matrix[row][col] == 'S':
+            index = [row, col]
+
+while True:
+    navigation = input()
+    current_index = index
+    matrix[current_index[0]][current_index[1]] = '.'
+
+    if navigation == 'left':
+        index[1] -= 1
+    elif navigation == 'right':
+        index[1] += 1
+    elif navigation == 'up':
+        index[0] -= 1
+    else:
+        index[0] += 1
+
+    if 0>index[0] or index[0]>=n or 0>index[1] or index[1]>=n:
+        print('Game over!')
+        break
+
+    if matrix[index[0]][index[1]] == '*':
+        food_eaten += 1
+    if food_eaten == 10:
+        print('You won! You fed the snake.')
+        matrix[current_index[0]][current_index[1]] = 'S'
+        break
+
+    elif matrix[index[0]][index[1]] == 'B':
+        for row in range(n):
+            for col in range(n):
+                if matrix[row][col] == 'B' and (row != index[0] or row != index[1]):
+                    index = [row, col]
+                    matrix[index[0]][index[1]] = '.'
+
+
+
+print(f'Food eaten: {food_eaten}')
+[print(''.join(map(str, row))) for row in matrix]
