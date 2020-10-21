@@ -1,0 +1,44 @@
+n = int(input())
+bombs = int(input())
+
+matrix = [[0 for _ in range(n + 2)] for _ in range(n + 2)]
+
+for _ in range(bombs):
+    coords = list(map(int, input()[1:-1].split(', ')))
+    row = coords[0] + 1
+    col = coords[1] + 1
+    matrix[row][col] = '*'
+
+    if matrix[row - 1][col - 1] != '*':
+        matrix[row - 1][col - 1] += 1
+
+    if matrix[row - 1][col] != '*':
+        matrix[row - 1][col] += 1
+
+    if matrix[row - 1][col + 1] != '*':
+        matrix[row - 1][col + 1] += 1
+
+    if matrix[row][col - 1] != '*':
+        matrix[row][col - 1] += 1
+
+    if matrix[row][col + 1] != '*':
+        matrix[row][col + 1] += 1
+
+    if matrix[row + 1][col - 1] != '*':
+        matrix[row + 1][col - 1] += 1
+
+    if matrix[row + 1][col] != '*':
+        matrix[row + 1][col] += 1
+
+    if matrix[row + 1][col + 1] != '*':
+        matrix[row + 1][col + 1] += 1
+
+
+matrix.pop(0)
+matrix.pop(-1)
+for i in range(len(matrix)):
+    matrix[i].pop(0)
+    matrix[i].pop(-1)
+
+for el in matrix:
+    print(" ".join(map(str, el)))
