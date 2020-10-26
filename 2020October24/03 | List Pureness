@@ -1,0 +1,19 @@
+def best_list_pureness(list_of_numbers, k):
+    max_sum = 0
+    list_of_numbers = list(map(int, list_of_numbers))
+    current_rotation = 0
+    for i in range(0, len(list_of_numbers)):
+        max_sum += list_of_numbers[i] * i
+
+    for j in range(1, k+1):
+        last_element = list_of_numbers.pop()
+        list_of_numbers.insert(0, last_element)
+        sum = 0
+        for i in range(0, len(list_of_numbers)):
+            sum += list_of_numbers[i] * i
+
+        if sum > max_sum:
+            current_rotation = j
+            max_sum = sum
+
+    return f'Best pureness {max_sum} after {current_rotation} rotations'
