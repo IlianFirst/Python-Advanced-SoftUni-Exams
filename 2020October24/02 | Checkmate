@@ -1,0 +1,94 @@
+n = 8
+board = [[row for row in input().split()] for _ in range(n)]
+
+index = []
+for row in range(8):
+    for col in range(8):
+        if board[row][col] == 'K':
+            index = [row, col]
+
+
+checks = []
+
+for i in range(index[1]+1, 8):
+    if board[index[0]][i] == 'Q':
+        checks.append([index[0], i])
+        break
+
+for i in range(index[1], -1, -1):
+    if i == -1:
+        break
+    if board[index[0]][i] == 'Q':
+        checks.append([index[0], i])
+        break
+
+for i in range(index[0]+1, 8):
+    if board[i][index[1]] == 'Q':
+        checks.append([i, index[1]])
+        break
+
+for i in range(index[0], -1, -1):
+    if board[i][index[1]] == 'Q':
+        checks.append([i, index[1]])
+        break
+
+
+current_row = index[0]
+current_col = index[1]
+while True:
+    current_row -= 1
+    current_col -= 1
+    if current_row >= 0 and current_col >= 0:
+        current_place = board[current_row][current_col]
+        if current_place == 'Q':
+            checks.append([current_row, current_col])
+            break
+    else:
+        break
+
+current_row = index[0]
+current_col = index[1]
+while True:
+    current_row += 1
+    current_col += 1
+    if current_row < len(board) and current_col < len(board):
+        current_place = board[current_row][current_col]
+        if current_place == 'Q':
+            checks.append([current_row, current_col])
+            break
+    else:
+        break
+
+current_row = index[0]
+current_col = index[1]
+while True:
+    current_row -= 1
+    current_col += 1
+    if current_row >= 0 and current_col < len(board):
+        current_place = board[current_row][current_col]
+        if current_place == 'Q':
+            checks.append([current_row, current_col])
+            break
+    else:
+        break
+
+current_row = index[0]
+current_col = index[1]
+while True:
+    current_row += 1
+    current_col -= 1
+    if current_row < len(board) and current_col >= 0:
+        current_place = board[current_row][current_col]
+        if current_place == 'Q':
+            checks.append([current_row, current_col])
+            break
+    else:
+        break
+
+
+if checks:
+    for check in checks:
+        print(check)
+else:
+    print('The king is safe!')
+
