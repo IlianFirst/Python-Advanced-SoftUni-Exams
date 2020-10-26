@@ -1,0 +1,24 @@
+jobs = list(map(int, input().split(', ')))
+index = int(input())
+
+clock_cycles = 0
+index_of_min = 0
+while True:
+    current_list_without_zero = [el for el in jobs if el != 0]
+    jobs_min = min(current_list_without_zero)
+    for i in range(0 , len(jobs)):
+        if jobs[i] == jobs_min:
+            index_of_min = i
+            break
+
+    for j in range(jobs_min):
+        clock_cycles += 1
+        jobs[index_of_min] = jobs[index_of_min] - 1
+        if index_of_min == index and jobs[index_of_min] == 0:
+            break
+
+    if index_of_min == index and jobs[index_of_min] == 0:
+        break
+
+
+print(clock_cycles)
